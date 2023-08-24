@@ -111,6 +111,7 @@ public class SicerWebApiContext : DbContext{
 
 mkdir Configuration/
 cd ..
+cd ..
 
 # Crear la estructura de los archivos dentro de Aplicacion
 cd Aplicacion/
