@@ -15,7 +15,14 @@
 
     chmod +x init.sh
 
+**Este comando otorga todos los permisos incluidos los sudo**
+
+    chmod 777 init.sh 
+
 # Ejecución
 **Este comando ejecuta el script desde la terminal (Ten en cuenta que tambien se puede simplemente copiar y pegar el código desde la terminal)**
 
     ./init.sh
+
+
+    
