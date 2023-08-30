@@ -326,8 +326,8 @@ namespace Api"$1".Profiles;
 cd ..
 
 cd Properties/
-echo '{
-  "$schema": "https://json.schemastore.org/launchsettings.json",
+echo "{
+  "$schema": \"https://json.schemastore.org/launchsettings.json\",
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -352,7 +352,7 @@ echo '{
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "applicationUrl": \"https://localhost:5001;http://localhost:5000\",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -366,7 +366,7 @@ echo '{
       }
     }
   }
-}' > launchSettings.json
+}" > launchSettings.json
 
 cd ..
 mkdir Helpers/
@@ -382,12 +382,15 @@ cd Dominio/
 cd Entities/
 entity_name="$1"  # Almacena el nombre de la Entidad
 
+# Reemplazar espacios en blanco con guiones bajos y eliminar caracteres no válidos
+entity_file_name=$(echo "$entity_name" | sed 's/ /_/g' | sed 's/[^A-Za-z0-9_]//g')
+
 echo "namespace Dominio.Entities;
 public class $entity_name : BaseEntity{
 
     public ICollection<Profesor> ? Profesores { get; set; } = new HashSet<Profesor>();
     public ICollection<Salon> ? Salones { get; set;}
-}" > $entity_name.cs
+}" > "$entity_file_name.cs"
 cd ..
 cd ..
 }
