@@ -7,7 +7,7 @@
 
 <div style="display: flex; justify-content: center;">
 
-## Documentación de automatización con Bash hecha por [Sicer Brito](https://github.com/SicerBrito) 🧑‍💻
+## Documentación de la automatización realizada con Bash hecha por [Sicer Brito](https://github.com/SicerBrito) 🧑‍💻
 </div>
 
 # Permisos 
