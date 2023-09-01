@@ -30,18 +30,24 @@ create_webapi() {
 
     # Crear las referencias
     cd Persistencia 
-    echo 'dotnet add reference ..\Dominio\' 
+    dotnet add reference ..\\Dominio\\
+
     cd .. 
     cd Aplicacion 
-    echo 'dotnet add reference ..\Dominio\' 
-    echo 'dotnet add reference ..\Persistencia\' 
+    dotnet add reference ..\\Dominio\\ 
+
+    dotnet add reference ..\\Persistencia\\
+
     cd ..
     cd Seguridad 
-    echo 'dotnet add reference..\Aplicacion\'
+    dotnet add reference ..\\Aplicacion\\
+
     cd ..
     cd Api"$1"  
-    echo 'dotnet add reference ..\Aplicacion\'
-    echo 'dotnet add reference ..\Seguridad\'
+    dotnet add reference ..\\Aplicacion\\
+
+    dotnet add reference ..\\Seguridad\\
+
     cd .. 
 
     # Instalación de herramientas
@@ -59,7 +65,7 @@ create_webapi() {
     cd ..
     cd Seguridad
     dotnet add package System.IdentityModel.Tokens.Jwt --version 6.32.2
-    cd..
+    cd ..
     cd Api"$1"
     dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.10
     dotnet add package Newtonsoft.Json --version 13.0.3
@@ -81,7 +87,7 @@ echo 'namespace Dominio.Entities;
 echo 'namespace Dominio.Entities;
     public class BaseEntityA{
         
-        public string Id { get; set; }
+        public string ? Id { get; set; }
         
     }' > BaseEntityA.cs
 
@@ -438,14 +444,13 @@ create_entity() {
     
 cd Dominio 
 cd Entities  
-entity_name="$1"  # Almacena el nombre de la Entidad
 
 echo "namespace Dominio.Entities;
-public class $entity_name : BaseEntity{
+public class "$1" : BaseEntity{
 
     public ICollection<Profesor> ? Profesores { get; set; } = new HashSet<Profesor>();
     public ICollection<Salon> ? Salones { get; set;}
-}" > $entity_name.cs
+}" > "$1".cs
 cd ..
 cd ..
 }
@@ -484,6 +489,10 @@ cd ..
 # Función para crear un nuevo archivo de configuración
 create_configuración() {
 
+cd Persistencia
+cd Data
+cd Configuration
+
 config_name="$1"Configuration  # Almacena el nombre de la configuración
 
 echo "using Dominio.Entities;
@@ -492,11 +501,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistencia.Data.Configuration;
-public class $config_name : IEntityTypeConfiguration<{$1}>
+public class "$file_name" : IEntityTypeConfiguration<{"$file_name"}>
 {
-    public void Configure(EntityTypeBuilder<{$1}> builder)
+    public void Configure(EntityTypeBuilder<{"$file_name"}> builder)
     {
-        builder.ToTable("{$1}");
+        builder.ToTable("{"$file_name"}");
 
         builder.Property(p => p.)
             .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
@@ -530,23 +539,29 @@ public class $config_name : IEntityTypeConfiguration<{$1}>
                 }
             );
     }
-}" > "$config_name".cs
+}" > "$file_name".cs
+
+cd ..
+cd ..
+cd ..
+
 }
 
 create_interface() {
 cd Dominio
 cd Interfaces
 
+mkdir "$1"
+
 interface_name="$1"Repository # Almacena el nombre de la interface
 
 echo "using Dominio.Entities;
 
 namespace Dominio.Interfaces;
-    public interface $interface_name : IGenericRepository<$1>{
+    public interface "$interface_name" : IGenericRepository<"$1">{
         
-    }" > $interface_name.cs
+    }" > "$interface_name".cs
 
-mkdir Configuration
 cd ..
 cd ..
 }
@@ -555,7 +570,7 @@ create_repository() {
 cd Aplicacion
 cd Repository
 
-repository_name="$1"Repository # Almacena el nombre de la interface
+repository_name="$1"Repository # Almacena el nombre del repositorio
 
 echo "using Dominio.Entities;
 using Dominio.Interfaces;
@@ -603,52 +618,56 @@ while true; do
     read -p "Seleccione una opción: " choice
 
     case $choice in
-        1)
+        1)  # Carpeta del proyecto
             get_file_name
             create_project_folder "$file_name"
             echo "Se ha creado la carpeta $file_name"
             ;;
 
-        2)
+        2)  # Estructura base y WebApi
             get_file_name
             create_webapi "$file_name"
             ;;
 
-        3)
+        3)  # Archivo context y las carpetas Data y Configuration
             get_file_name
             create_context "$file_name"
             echo "Se ha creado el archivo "$file_name"Context"
             ;;
 
-        4)
+        4)  # Crear Entidad dentro de Dominio/Entities
             get_file_name
             create_entity
             echo "Se ha creado la entidad $file_name"
             ;;
 
-        5)
+        5)  # Crear Canfiguracion dentro de Data/Configuration
             get_file_name
             create_configuración
-            echo "Se ha creado el archivo de configuración $file_name"
+            echo "Se ha creado el archivo "$file_name"Configuración"
             ;;
 
-        6)
-
+        6)  # Crear Interfas dentro de Dominio/Interfaces
+            get_file_name
+            create_interface
+            echo "Se ha creado el archivo I$file_name"
             ;;
 
-        7)
-
+        7)  # Crear Repositorio dentro de la carpeta Aplicacion/Repository
+            get_file_name
+            create_repository
+            echo "Se ha creado el archivo $file_name"
             ;;
 
-        8)
-
+        8)  # Crear Dto dentro de la carpeta WebApi/Dtos
+            get_file_name
             ;;
 
-        9)
-
+        9)  # Crear Controller dentro de la carpeta WebApi/Controllers
+            get_file_name
             ;;
 
-        10)
+        10)  # Salir del Menu
             echo "Saliendo..."
             break
             ;;
