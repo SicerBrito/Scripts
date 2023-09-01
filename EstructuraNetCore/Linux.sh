@@ -20,8 +20,10 @@ create_webapi() {
     dotnet new classlib -o Dominio
     dotnet new classlib -o Persistencia
     dotnet new classlib -o Aplicacion
+    dotnet new classlib -o Seguridad
     dotnet sln add Dominio/
     dotnet sln add Aplicacion/
+    dotnet sln add Seguridad/
     dotnet sln add Api"$1"/
 
     # Crear las referencias
@@ -33,6 +35,10 @@ create_webapi() {
     dotnet add reference ../Persistencia/
     cd ..
     cd Api"$1"/
+    dotnet add reference ../Aplicacion/
+    dotnet add reference ../Seguridad/
+    cd ..
+    cd Seguridad/
     dotnet add reference ../Aplicacion/
     cd ..
 
@@ -55,6 +61,10 @@ create_webapi() {
     dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 7.0.10
     dotnet add package Swashbuckle.AspNetCore --version 6.5.0
     cd ..
+    cd Seguridad/
+    dotnet add package System.IdentityModel.Tokens.Jwt --version 6.32.2
+    cd ..
+
 
 # Crear la estructura de los archivos dentro de Dominio
 cd Dominio/
@@ -372,6 +382,9 @@ cd ..
 mkdir Helpers/
 cd ..
 
+cd Seguridad/
+mkdir TokenSeguridad
+
 echo "Se ha creado toda la estructura base del proyecto"
 }
 
@@ -538,62 +551,62 @@ while true; do
     echo "1. Crear la carpeta del Proyecto"
     echo "2. Crear la aplicación WebApi junto al resto de la estructura"
     echo "3. Crear el archivo context dentro de la carpeta Data"
-    echo "4. Crear los archivos Entidades dentro de la carpeta Dominio"
-    echo "5. Crear los archivos Configuraciones dentro de la carpeta Persistencia/Data/Configurations"
-    echo "6. Crear los archivos Interfaces dentro de la carpeta Dominio/Interfaces"
-    echo "7. Crear los archivos Repositorios dentro de la carpeta Aplicacion/Repository"
-    echo "8. Crear los archivos Dtos dentro de la carpeta WebApi"
-    echo "9. Crear los archivos Controllers dentro de la carpeta WebApi"
+    echo "4. Crear un archivo Entidad dentro de la carpeta Dominio/Entities"
+    echo "5. Crear un archivo Configuracion dentro de la carpeta Persistencia/Data/Configuration"
+    echo "6. Crear un archivo Interfas dentro de la carpeta Dominio/Interfaces"
+    echo "7. Crear un archivo Repositorio dentro de la carpeta Aplicacion/Repository"
+    echo "8. Crear un archivo Dto dentro de la carpeta WebApi/Dtos"
+    echo "9. Crear un archivo Controller dentro de la carpeta WebApi/Controllers"
     echo "10. Salir"
     read -p "Seleccione una opción: " choice
 
     case $choice in
-        1)
+        1)  # Carpeta del proyecto
             get_file_name
             create_project_folder "$file_name"
             echo "Se ha creado la carpeta $file_name"
             ;;
 
-        2)
+        2)  # Estructura base y WebApi
             get_file_name
             create_webapi "$file_name"
             ;;
 
-        3)
+        3)  # Archivo context y las carpetas Data y Configuration
             get_file_name
             create_context "$file_name"
             echo "Se ha creado el archivo "$file_name"Context"
             ;;
 
-        4)
+        4)  # Crear Entidad dentro de Dominio/Entities
             get_file_name
             create_entity
             echo "Se ha creado la entidad $file_name"
             ;;
 
-        5)
+        5)  # Crear Canfiguracion dentro de Data/Configuration
             get_file_name
             create_configuración
-            echo "Se ha creado el archivo de configuración $file_name"
+            echo "Se ha creado el archivo "$file_name"Configuración"
             ;;
 
-        6)
-
+        6)  # Crear Interfas dentro de Dominio/Interfaces
+            get_file_name
             ;;
 
-        7)
-
+        7)  # Crear Repositorio dentro de la carpeta Aplicacion/Repository
+            get_file_name
             ;;
 
-        8)
-
+        8)  # Crear Dto dentro de la carpeta WebApi/Dtos
+            get_file_name
             ;;
 
-        9)
-
+        9)  # Crear Controller dentro de la carpeta WebApi/Controllers
+            get_file_name
             ;;
 
-        10)
+        10)  # Salir del Menu
             echo "Saliendo..."
             break
             ;;
