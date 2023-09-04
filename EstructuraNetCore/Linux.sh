@@ -7,6 +7,7 @@ get_file_name() {
     read -p "Ingrese el nombre que va a tener archivo/carpeta: " file_name
 }
 
+
 # Función para crar la carpeta que va contener todo el proyecto
 create_project_folder() {
     mkdir "$1" && cd "$1"
@@ -71,18 +72,18 @@ cd Dominio/
 mkdir Entities/
 cd Entities/
 echo 'namespace Dominio.Entities;
-    public class BaseEntity{
+    public class BaseEntityA{
         
         public int Id { get; set; }
         
-    }' > BaseEntity.cs
+    }' > BaseEntityA.cs
 
 echo 'namespace Dominio.Entities;
-    public class BaseEntityA{
+    public class BaseEntityB{
         
         public string Id { get; set; }
         
-    }' > BaseEntityA.cs
+    }' > BaseEntityB.cs
 
 cd ..
 
@@ -393,14 +394,13 @@ create_entity() {
     
 cd Dominio/
 cd Entities/
-entity_name="$1"  # Almacena el nombre de la Entidad
 
 echo "namespace Dominio.Entities;
-public class $entity_name : BaseEntity{
+public class "$file_name" : BaseEntity{
 
     public ICollection<Profesor> ? Profesores { get; set; } = new HashSet<Profesor>();
     public ICollection<Salon> ? Salones { get; set;}
-}" > "$entity_name.cs"
+}" > "$file_name.cs"
 cd ..
 cd ..
 }
@@ -411,15 +411,13 @@ cd Persistencia/
 mkdir Data/
 cd Data/
 
-context_name="$1"Context  # Almacena el nombre del contexto
-
 echo "using System.Reflection;
 using Dominio.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistencia.Data;
-public class $context_name : DbContext{
-    public $context_name(DbContextOptions<$context_name> options) : base(options){
+public class "$file_name"Context : DbContext{
+    public "$file_name"Context(DbContextOptions<"$file_name"Context> options) : base(options){
 
     }
 
@@ -429,7 +427,7 @@ public class $context_name : DbContext{
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
-}" > "$context_name".cs
+}" > "$file_name"Context.cs
 
 mkdir Configuration/
 cd ..
@@ -439,7 +437,9 @@ cd ..
 # Función para crear un nuevo archivo de configuración
 create_configuración() {
 
-config_name="$1"Configuration  # Almacena el nombre de la configuración
+cd Persistencia/
+cd Data/
+cd Configuration/
 
 echo "using Dominio.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -447,11 +447,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistencia.Data.Configuration;
-public class $config_name : IEntityTypeConfiguration<{$1}>
+public class "$file_name"Configuration : IEntityTypeConfiguration<"$file_name">
 {
-    public void Configure(EntityTypeBuilder<{$1}> builder)
+    public void Configure(EntityTypeBuilder<"$file_name"> builder)
     {
-        builder.ToTable("{$1}");
+        builder.ToTable("$file_name");
 
         builder.Property(p => p.)
             .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
@@ -485,23 +485,25 @@ public class $config_name : IEntityTypeConfiguration<{$1}>
                 }
             );
     }
-}" > "$config_name".cs
+}" > "$file_name"Configuration.cs
+
+cd ..
+cd ..
+cd ..
+
 }
 
 create_interface() {
 cd Dominio/
 cd Interfaces/
 
-interface_name="$1"Repository # Almacena el nombre de la interface
-
 echo "using Dominio.Entities;
 
 namespace Dominio.Interfaces;
-    public interface $interface_name : IGenericRepository<$1>{
+    public interface I"$file_name"Repository : IGenericRepository<$file_name>{
         
-    }" > "$interface_name".cs
+    }" > I"$file_name"Repository.cs
 
-mkdir Configuration/
 cd ..
 cd ..
 }
@@ -510,32 +512,29 @@ create_repository() {
 cd Aplicacion/
 cd Repository/
 
-repository_name="$1"Repository # Almacena el nombre del repositorio
-
 echo "using Dominio.Entities;
 using Dominio.Interfaces;
 using Persistencia.Data;
 using Microsoft.EntityFrameworkCore;
 namespace Aplicacion.Repository;
-public class $repository_name : GenericRepository<Alumno>, I"$repository_name"
+public class "$file_name"Repository : GenericRepository<"$file_name">, I"$file_name"Repository
 {
     private readonly NameContext _Context;
-    public AlumnoRepository(NameContext context) : base(context)
+    public "$file_name"Repository(NameContext context) : base(context)
     {
         _Context = context;
     }
 
 
-    public override async Task<IEnumerable<Alumno>> GetAllAsync()
+    public override async Task<IEnumerable<"$file_name">> GetAllAsync()
     {
-        return await _Context.Alumnos
+        return await _Context."$file_name"s
             .Include(p => (p.Profesores as List<Profesor>).Select(i=>i.Nombre)) //Si no se coloca en la parte del json apareceria como null            
             .ToListAsync();
     }
 
-}" > "$repository_name".cs
+}" > "$file_name"Repository.cs
 
-mkdir Configuration/
 cd ..
 cd ..
 }
