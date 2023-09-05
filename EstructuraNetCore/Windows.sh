@@ -54,7 +54,6 @@ create_webapi() {
     cd Dominio 
     dotnet add package Microsoft.EntityFrameworkCore --version 7.0.10
     dotnet add package MediatR.Extensions.Microsoft.DependencyInjection --version 11.1.0
-    dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 12.0.1
     dotnet add package FluentValidation.AspNetCore --version 11.3.0
     dotnet add package itext7.pdfhtml --version 5.0.1
     cd ..
@@ -67,8 +66,11 @@ create_webapi() {
     dotnet add package System.IdentityModel.Tokens.Jwt --version 6.32.2
     cd ..
     cd Api"$1"
+    dotnet add package AspNetCoreRateLimit --version 5.0.0
     dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.10
-    dotnet add package Newtonsoft.Json --version 13.0.3
+    dotnet add package Microsoft.AspNetCore.Mvc.Versioning --version 5.1.0 
+    dotnet add package Microsoft.AspNetCore.OpenApi --version 7.0.10 
+    dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 12.0.1
     dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 7.0.10
     dotnet add package Swashbuckle.AspNetCore --version 6.5.0
     cd ..
@@ -83,13 +85,6 @@ echo 'namespace Dominio.Entities;
         public int Id { get; set; }
         
     }' > BaseEntity.cs
-
-echo 'namespace Dominio.Entities;
-    public class BaseEntityA{
-        
-        public string ? Id { get; set; }
-        
-    }' > BaseEntityA.cs
 
 cd ..
 
@@ -836,6 +831,11 @@ FodyWeavers.xsd
 *.sln.iml
 " > .gitignore
 
+cd Persistencia
+mkdir Data/
+mkdir Configuration/
+cd ..
+
 echo "Se ha creado toda la estructura base del proyecto"
 
 }
@@ -860,7 +860,6 @@ cd ..
 # Función para crear un nuevo archivo context
 create_context() {
 cd Persistencia  
-mkdir Data 
 cd Data
 
 echo "using System.Reflection;
@@ -881,7 +880,6 @@ public class "$file_name"Context : DbContext{
     }
 }" > "$file_name"Context.cs
 
-mkdir Configuration 
 cd ..
 cd ..
 }
@@ -958,6 +956,7 @@ namespace Dominio.Interfaces;
 
 cd ..
 cd ..
+
 }
 
 create_repository() {
@@ -989,6 +988,7 @@ public class "$file_name"Repository : GenericRepository<"$file_name">, I"$file_n
 
 cd .. 
 cd .. 
+
 }
 
 # Main
@@ -1011,51 +1011,60 @@ while true; do
     case $choice in
         1)  # Carpeta del proyecto
             get_file_name
+            echo "Crear la carpeta del Proyecto"
             create_project_folder "$file_name"
             echo "Se ha creado la carpeta $file_name"
             ;;
 
         2)  # Estructura base y WebApi
             get_file_name
+            echo "Crear la aplicación WebApi junto al resto de la estructura"
             create_webapi "$file_name"
             ;;
 
         3)  # Archivo context y las carpetas Data y Configuration
             get_file_name
+            echo "Crear el archivo context dentro de la carpeta Data"
             create_context "$file_name"
             echo "Se ha creado el archivo "$file_name"Context"
             ;;
 
         4)  # Crear Entidad dentro de Dominio/Entities
             get_file_name
+            echo "Crear los archivos Entidades dentro de la carpeta Dominio"
             create_entity
             echo "Se ha creado la entidad $file_name"
             ;;
 
         5)  # Crear Canfiguracion dentro de Data/Configuration
             get_file_name
+            echo "Crear los archivos Configuraciones dentro de la carpeta Persistencia/Data/Configurations"
             create_configuración
             echo "Se ha creado el archivo "$file_name"Configuración"
             ;;
 
         6)  # Crear Interfas dentro de Dominio/Interfaces
             get_file_name
+            echo "Crear los archivos Interfaces dentro de la carpeta Dominio/Interfaces"
             create_interface
             echo "Se ha creado el archivo I$file_name"
             ;;
 
         7)  # Crear Repositorio dentro de la carpeta Aplicacion/Repository
             get_file_name
+            echo "Crear los archivos Repositorios dentro de la carpeta Aplicacion/Repository"
             create_repository
             echo "Se ha creado el archivo $file_name"
             ;;
 
         8)  # Crear Dto dentro de la carpeta WebApi/Dtos
             get_file_name
+            echo "Crear los archivos Dtos dentro de la carpeta WebApi"
             ;;
 
         9)  # Crear Controller dentro de la carpeta WebApi/Controllers
             get_file_name
+            echo "Crear los archivos Controllers dentro de la carpeta WebApi"
             ;;
 
         10)  # Salir del Menu
