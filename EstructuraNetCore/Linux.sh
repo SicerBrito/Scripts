@@ -23,6 +23,7 @@ create_webapi() {
     dotnet new classlib -o Aplicacion
     dotnet new classlib -o Seguridad
     dotnet sln add Dominio/
+    dotnet sln add Persistencia/
     dotnet sln add Aplicacion/
     dotnet sln add Seguridad/
     dotnet sln add Api"$1"/
