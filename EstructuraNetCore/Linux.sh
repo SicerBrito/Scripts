@@ -235,7 +235,7 @@ namespace Api"$1".Extensions;
 
         public static void ConfigureCors(this IServiceCollection services) =>
             services.AddCors(options => {
-                options.AddPolicy("CorsPolicy",builder=>
+                options.AddPolicy(""CorsPolicy"",builder=>
                     builder.AllowAnyOrigin()        //WithOrigins("http://domini.com")
                     .AllowAnyMethod()               //WithMethods(*GET*, "POST")
                     .AllowAnyHeader());             //WithHeaders(*accept*, "content-type")
@@ -848,7 +848,7 @@ public class "$file_name"Configuration : IEntityTypeConfiguration<"$file_name">
 {
     public void Configure(EntityTypeBuilder<"$file_name"> builder)
     {
-        builder.ToTable("$file_name");
+        builder.ToTable(""$file_name"");
 
         builder.Property(p => p.)
             .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
