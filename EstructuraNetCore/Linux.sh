@@ -852,13 +852,13 @@ public class "$file_name"Configuration : IEntityTypeConfiguration<"$file_name">
 
         builder.Property(p => p.)
             .HasAnnotation(""MySql:ValueGenerationStrategy"", MySqlValueGenerationStrategy.IdentityColumn)
-            .HasColumnName("")
-            .HasColumnType("")
+            .HasColumnName("""")
+            .HasColumnType("""")
             .IsRequired();
 
         builder.Property(p => p.)
-            .HasColumnName("")
-            .HasColumnType("")
+            .HasColumnName("""")
+            .HasColumnType("""")
             .HasMaxLength()
             .IsRequired();
 
