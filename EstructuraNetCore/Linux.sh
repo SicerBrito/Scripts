@@ -851,7 +851,7 @@ public class "$file_name"Configuration : IEntityTypeConfiguration<"$file_name">
         builder.ToTable(""$file_name"");
 
         builder.Property(p => p.)
-            .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
+            .HasAnnotation(""MySql:ValueGenerationStrategy"", MySqlValueGenerationStrategy.IdentityColumn)
             .HasColumnName("")
             .HasColumnType("")
             .IsRequired();
