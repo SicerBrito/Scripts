@@ -1,429 +1,431 @@
-@echo off
-cd ..
-cd ..
+@REM Este script no funciona como deberia
 
-cd Documents
+@REM @echo off
+@REM cd ..
+@REM cd ..
 
-:: Función para obtener el nombre del archivo/carpeta
-:get_file_name
-set /p file_name="Ingrese el nombre que va a tener archivo/carpeta: "
+@REM cd Documents
 
-:: Función para crear la carpeta que va a contener todo el proyecto
-:create_project_folder
-mkdir "%file_name%" 
-cd "%file_name%"
-goto :EOF
+@REM :: Función para obtener el nombre del archivo/carpeta
+@REM :get_file_name
+@REM set /p file_name="Ingrese el nombre que va a tener archivo/carpeta: "
 
-:: Función para crear una nueva aplicación webapi con dotnet
-:create_webapi
-dotnet new webapi -o Api%file_name%
-:: Crear la estructura de carpetas y archivos
-dotnet new sln
-dotnet new classlib -o Dominio
-dotnet new classlib -o Persistencia
-dotnet new classlib -o Aplicacion
-dotnet new classlib -o Seguridad
-dotnet sln add Dominio
-dotnet sln add Aplicacion
-dotnet sln add Seguridad 
-dotnet sln add Api%file_name%
+@REM :: Función para crear la carpeta que va a contener todo el proyecto
+@REM :create_project_folder
+@REM mkdir "%file_name%" 
+@REM cd "%file_name%"
+@REM goto :EOF
 
-:: Crear las referencias
-cd Persistencia 
-dotnet add reference ..\Dominio\
+@REM :: Función para crear una nueva aplicación webapi con dotnet
+@REM :create_webapi
+@REM dotnet new webapi -o Api%file_name%
+@REM :: Crear la estructura de carpetas y archivos
+@REM dotnet new sln
+@REM dotnet new classlib -o Dominio
+@REM dotnet new classlib -o Persistencia
+@REM dotnet new classlib -o Aplicacion
+@REM dotnet new classlib -o Seguridad
+@REM dotnet sln add Dominio
+@REM dotnet sln add Aplicacion
+@REM dotnet sln add Seguridad 
+@REM dotnet sln add Api%file_name%
 
-cd .. 
-cd Aplicacion 
-dotnet add reference ..\Dominio\ 
-dotnet add reference ..\Persistencia\
+@REM :: Crear las referencias
+@REM cd Persistencia 
+@REM dotnet add reference ..\Dominio\
 
-cd ..
-cd Seguridad 
-dotnet add reference ..\Aplicacion\
+@REM cd .. 
+@REM cd Aplicacion 
+@REM dotnet add reference ..\Dominio\ 
+@REM dotnet add reference ..\Persistencia\
 
-cd ..
-cd Api%file_name%
-dotnet add reference ..\Aplicacion\
-dotnet add reference ..\Seguridad\
+@REM cd ..
+@REM cd Seguridad 
+@REM dotnet add reference ..\Aplicacion\
 
-cd .. 
+@REM cd ..
+@REM cd Api%file_name%
+@REM dotnet add reference ..\Aplicacion\
+@REM dotnet add reference ..\Seguridad\
 
-:: Instalación de herramientas
-cd Dominio 
-dotnet add package Microsoft.EntityFrameworkCore --version 7.0.10
-dotnet add package MediatR.Extensions.Microsoft.DependencyInjection --version 11.1.0
-dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 12.0.1
-dotnet add package FluentValidation.AspNetCore --version 11.3.0
-dotnet add package itext7.pdfhtml --version 5.0.1
-cd ..
-cd Persistencia 
-dotnet add package Microsoft.EntityFrameworkCore --version 7.0.10
-dotnet add package Pomelo.EntityFrameworkCore.MySql --version 7.0.0
-dotnet add package Dapper --version 2.0.151
-cd ..
-cd Seguridad
-dotnet add package System.IdentityModel.Tokens.Jwt --version 6.32.2
-cd ..
-cd Api%file_name%
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.10
-dotnet add package Newtonsoft.Json --version 13.0.3
-dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 7.0.10
-dotnet add package Swashbuckle.AspNetCore --version 6.5.0
-cd ..
+@REM cd .. 
 
-:: Crear la estructura de los archivos dentro de Dominio
-cd Dominio
-mkdir Entities 
-cd Entities
-echo using Dominio.Entities;^
-    public class BaseEntity{^
-        public int Id { get; set; }^
-    } > BaseEntity.cs
+@REM :: Instalación de herramientas
+@REM cd Dominio 
+@REM dotnet add package Microsoft.EntityFrameworkCore --version 7.0.10
+@REM dotnet add package MediatR.Extensions.Microsoft.DependencyInjection --version 11.1.0
+@REM dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 12.0.1
+@REM dotnet add package FluentValidation.AspNetCore --version 11.3.0
+@REM dotnet add package itext7.pdfhtml --version 5.0.1
+@REM cd ..
+@REM cd Persistencia 
+@REM dotnet add package Microsoft.EntityFrameworkCore --version 7.0.10
+@REM dotnet add package Pomelo.EntityFrameworkCore.MySql --version 7.0.0
+@REM dotnet add package Dapper --version 2.0.151
+@REM cd ..
+@REM cd Seguridad
+@REM dotnet add package System.IdentityModel.Tokens.Jwt --version 6.32.2
+@REM cd ..
+@REM cd Api%file_name%
+@REM dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.10
+@REM dotnet add package Newtonsoft.Json --version 13.0.3
+@REM dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 7.0.10
+@REM dotnet add package Swashbuckle.AspNetCore --version 6.5.0
+@REM cd ..
 
-echo using Dominio.Entities;^
-    public class BaseEntityA{^
-        public string ? Id { get; set; }^
-    } > BaseEntityA.cs
+@REM :: Crear la estructura de los archivos dentro de Dominio
+@REM cd Dominio
+@REM mkdir Entities 
+@REM cd Entities
+@REM echo using Dominio.Entities;^
+@REM     public class BaseEntity{^
+@REM         public int Id { get; set; }^
+@REM     } > BaseEntity.cs
 
-cd ..
+@REM echo using Dominio.Entities;^
+@REM     public class BaseEntityA{^
+@REM         public string ? Id { get; set; }^
+@REM     } > BaseEntityA.cs
 
-mkdir Interfaces 
-cd Interfaces
-echo using System.Linq.Expressions;^
-using Dominio.Entities;^
-^
-namespace Dominio.Interfaces;^
-    public interface IGenericRepository<T> where T : BaseEntity{^
-^
-        Task<T> ? GetByIdAsync(string Id);^
-        Task<IEnumerable<T>> GetAllAsync();^
-        IEnumerable<T> Find(Expression<Func<T, bool>> expression);^
-        void Add(T entity);^
-        void AddRange(IEnumerable<T> entities);^
-        void Remove(T entity);^
-        void RemoveRange(IEnumerable<T> entities);^
-        void Update(T entity);^
-^
-    } > IGenericRepository.cs
+@REM cd ..
 
-echo using Dominio.Interfaces;^
-    public interface IUnitOfWork{^
-        INombreInterfas ? PluralInterfas { get; }^
-        Task<int> SaveAsync();^
-    } > IUnitOfWork.cs
-cd ..
-cd ..
+@REM mkdir Interfaces 
+@REM cd Interfaces
+@REM echo using System.Linq.Expressions;^
+@REM using Dominio.Entities;^
+@REM ^
+@REM namespace Dominio.Interfaces;^
+@REM     public interface IGenericRepository<T> where T : BaseEntity{^
+@REM ^
+@REM         Task<T> ? GetByIdAsync(string Id);^
+@REM         Task<IEnumerable<T>> GetAllAsync();^
+@REM         IEnumerable<T> Find(Expression<Func<T, bool>> expression);^
+@REM         void Add(T entity);^
+@REM         void AddRange(IEnumerable<T> entities);^
+@REM         void Remove(T entity);^
+@REM         void RemoveRange(IEnumerable<T> entities);^
+@REM         void Update(T entity);^
+@REM ^
+@REM     } > IGenericRepository.cs
 
-:: Crear la estructura de los archivos dentro de Aplicacion
-cd Aplicacion
-mkdir Repository
-cd Repository
-echo using Dominio.Entities;^
-using Dominio.Interfaces;^
-using Persistencia.Data;^
-using Microsoft.EntityFrameworkCore;^
-^
-namespace Aplicacion.Repository;^
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity^
-{^
-    private readonly NameContext _context;^
-    ^
-    public GenericRepository(NameContext context)^
-    {^
-        _context = context;^
-    }^
-    ^
-    public virtual void Add(T entity)^
-    {^
-        _context.Set<T>().Add(entity);^
-    }^
-    ^
-    public virtual void AddRange(IEnumerable<T> entities)^
-    {^
-        _context.Set<T>().AddRange(entities);^
-    }^
-    ^
-    public virtual IEnumerable<T> Find(Expression<Func<T, bool>> expression)^
-    {^
-        return  _context.Set<T>().Where(expression);^
-    }^
-    ^
-    public virtual async Task<IEnumerable<T>> GetAllAsync()^
-    {^
-        return await _context.Set<T>().ToListAsync();^
-    }^
-    ^
-    public virtual async Task<T>? GetByIdAsync(string Id)^
-    {^
-        return (await _context.Set<T>().FindAsync(Id))!;^
-    }^
-    ^
-    public virtual void Remove(T entity)^
-    {^
-        _context.Set<T>().Remove(entity);^
-    }^
-    ^
-    public virtual void RemoveRange(IEnumerable<T> entities)^
-    {^
-        _context.Set<T>().RemoveRange(entities);^
-    }^
-    ^
-    public virtual void Update(T entity)^
-    {^
-        _context.Set<T>().Update(entity);^
-    }^
-} > GenericRepository.cs
+@REM echo using Dominio.Interfaces;^
+@REM     public interface IUnitOfWork{^
+@REM         INombreInterfas ? PluralInterfas { get; }^
+@REM         Task<int> SaveAsync();^
+@REM     } > IUnitOfWork.cs
+@REM cd ..
+@REM cd ..
 
-cd .. 
-cd .. 
-cd ..
+@REM :: Crear la estructura de los archivos dentro de Aplicacion
+@REM cd Aplicacion
+@REM mkdir Repository
+@REM cd Repository
+@REM echo using Dominio.Entities;^
+@REM using Dominio.Interfaces;^
+@REM using Persistencia.Data;^
+@REM using Microsoft.EntityFrameworkCore;^
+@REM ^
+@REM namespace Aplicacion.Repository;^
+@REM public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity^
+@REM {^
+@REM     private readonly NameContext _context;^
+@REM     ^
+@REM     public GenericRepository(NameContext context)^
+@REM     {^
+@REM         _context = context;^
+@REM     }^
+@REM     ^
+@REM     public virtual void Add(T entity)^
+@REM     {^
+@REM         _context.Set<T>().Add(entity);^
+@REM     }^
+@REM     ^
+@REM     public virtual void AddRange(IEnumerable<T> entities)^
+@REM     {^
+@REM         _context.Set<T>().AddRange(entities);^
+@REM     }^
+@REM     ^
+@REM     public virtual IEnumerable<T> Find(Expression<Func<T, bool>> expression)^
+@REM     {^
+@REM         return  _context.Set<T>().Where(expression);^
+@REM     }^
+@REM     ^
+@REM     public virtual async Task<IEnumerable<T>> GetAllAsync()^
+@REM     {^
+@REM         return await _context.Set<T>().ToListAsync();^
+@REM     }^
+@REM     ^
+@REM     public virtual async Task<T>? GetByIdAsync(string Id)^
+@REM     {^
+@REM         return (await _context.Set<T>().FindAsync(Id))!;^
+@REM     }^
+@REM     ^
+@REM     public virtual void Remove(T entity)^
+@REM     {^
+@REM         _context.Set<T>().Remove(entity);^
+@REM     }^
+@REM     ^
+@REM     public virtual void RemoveRange(IEnumerable<T> entities)^
+@REM     {^
+@REM         _context.Set<T>().RemoveRange(entities);^
+@REM     }^
+@REM     ^
+@REM     public virtual void Update(T entity)^
+@REM     {^
+@REM         _context.Set<T>().Update(entity);^
+@REM     }^
+@REM } > GenericRepository.cs
 
-mkdir UnitOfWork  
-cd UnitOfWork 
-echo using Aplicacion.Repository;^
-using Dominio.Interfaces;^
-using Persistencia.Data;^
-^
-namespace Aplicacion.UnitOfWork;^
-public class UnitOfWork : IUnitOfWork, IDisposable^
-{^
-    private INombreRepository? _NombreSingular;^
-    private readonly NameContext _Context;^
-    ^
-    public UnitOfWork(NameContext context)=> _Context = context;^
-    ^
-    public INombreRepository? NombrePlural => _NombreSingular ??= new NombreRepository(_Context);^
-    ^
-    ^
-    public void Dispose()^
-    {^
-        _Context.Dispose();^
-    }^
-    ^
-    public async Task<int> SaveAsync()^
-    {^
-        return await _Context.SaveChangesAsync();^
-    }^
-} > UnitOfWork.cs
+@REM cd .. 
+@REM cd .. 
+@REM cd ..
 
-cd ..
+@REM mkdir UnitOfWork  
+@REM cd UnitOfWork 
+@REM echo using Aplicacion.Repository;^
+@REM using Dominio.Interfaces;^
+@REM using Persistencia.Data;^
+@REM ^
+@REM namespace Aplicacion.UnitOfWork;^
+@REM public class UnitOfWork : IUnitOfWork, IDisposable^
+@REM {^
+@REM     private INombreRepository? _NombreSingular;^
+@REM     private readonly NameContext _Context;^
+@REM     ^
+@REM     public UnitOfWork(NameContext context)=> _Context = context;^
+@REM     ^
+@REM     public INombreRepository? NombrePlural => _NombreSingular ??= new NombreRepository(_Context);^
+@REM     ^
+@REM     ^
+@REM     public void Dispose()^
+@REM     {^
+@REM         _Context.Dispose();^
+@REM     }^
+@REM     ^
+@REM     public async Task<int> SaveAsync()^
+@REM     {^
+@REM         return await _Context.SaveChangesAsync();^
+@REM     }^
+@REM } > UnitOfWork.cs
 
-mkdir Contratos
-cd Contratos
-echo using Dominio.Entities;^
-^
-namespace Aplicacion.Contratos;^
-    public interface IJwtGenerator{^
-        string  CrearTopken(Pais pais);^
-    } > IJwtGenerator.cs
+@REM cd ..
+
+@REM mkdir Contratos
+@REM cd Contratos
+@REM echo using Dominio.Entities;^
+@REM ^
+@REM namespace Aplicacion.Contratos;^
+@REM     public interface IJwtGenerator{^
+@REM         string  CrearTopken(Pais pais);^
+@REM     } > IJwtGenerator.cs
     
-cd ..
-cd ..
+@REM cd ..
+@REM cd ..
 
-cd Seguridad
-mkdir TokenSeguridad
-cd TokenSeguridad
+@REM cd Seguridad
+@REM mkdir TokenSeguridad
+@REM cd TokenSeguridad
 
-echo using System.Security.Claims;^
-using Aplicacion.Contratos;^
-using Dominio.Entities;^
-^
-namespace Seguridad.TokenSeguridad;^
-public class JwtGenerador : IJwtGenerator^
-{^
-    public string CrearTopken(Pais pais)^
-    {^
-        var claims = new List<Claim>{^
-        ^
-        };^
-    }^
-} > JwtGenerador.cs
+@REM echo using System.Security.Claims;^
+@REM using Aplicacion.Contratos;^
+@REM using Dominio.Entities;^
+@REM ^
+@REM namespace Seguridad.TokenSeguridad;^
+@REM public class JwtGenerador : IJwtGenerator^
+@REM {^
+@REM     public string CrearTopken(Pais pais)^
+@REM     {^
+@REM         var claims = new List<Claim>{^
+@REM         ^
+@REM         };^
+@REM     }^
+@REM } > JwtGenerador.cs
 
-cd ..
-cd ..
+@REM cd ..
+@REM cd ..
 
-:: Crear la estructura de los archivos dentro de la carpeta Api
-cd Api%file_name%  
-cd Controllers  
-echo using Microsoft.AspNetCore.Mvc;^
-^
-namespace Api%file_name%.Controllers;^
-^
-[ApiController]^
-[Route("api/sicer[controller]")]^
-^
-public class ApiBaseController : ControllerBase^
-{^
-    ^
-} > ApiBaseController.cs
-cd ..
+@REM :: Crear la estructura de los archivos dentro de la carpeta Api
+@REM cd Api%file_name%  
+@REM cd Controllers  
+@REM echo using Microsoft.AspNetCore.Mvc;^
+@REM ^
+@REM namespace Api%file_name%.Controllers;^
+@REM ^
+@REM [ApiController]^
+@REM [Route("api/sicer[controller]")]^
+@REM ^
+@REM public class ApiBaseController : ControllerBase^
+@REM {^
+@REM     ^
+@REM } > ApiBaseController.cs
+@REM cd ..
 
-mkdir Extensions 
-cd Extensions 
-echo using Aplicacion.UnitOfWork;^
-using Dominio.Interfaces;^
-^
-namespace Api%file_name%.Extensions;^
-^
-    public static class ApplicationServiceExtension{^
-^
-        public static void ConfigureCors(this IServiceCollection services) =>^
-            services.AddCors(options => {^
-                options.AddPolicy("CorsPolicy",builder=>^
-                    builder.AllowAnyOrigin()        //WithOrigins("http://domini.com")^
-                    .AllowAnyMethod()               //WithMethods(GET, "POST")^
-                    .AllowAnyHeader());             //WithHeaders(accept, "content-type")^
-            });^
-^
-^
-        public static void AddAplicacionServices(this IServiceCollection services)^
-        {^
-            services.AddScoped<IUnitOfWork,UnitOfWork>();^
-        }^
-^
-    } > ApplicationServiceExtension.cs
+@REM mkdir Extensions 
+@REM cd Extensions 
+@REM echo using Aplicacion.UnitOfWork;^
+@REM using Dominio.Interfaces;^
+@REM ^
+@REM namespace Api%file_name%.Extensions;^
+@REM ^
+@REM     public static class ApplicationServiceExtension{^
+@REM ^
+@REM         public static void ConfigureCors(this IServiceCollection services) =>^
+@REM             services.AddCors(options => {^
+@REM                 options.AddPolicy("CorsPolicy",builder=>^
+@REM                     builder.AllowAnyOrigin()        //WithOrigins("http://domini.com")^
+@REM                     .AllowAnyMethod()               //WithMethods(GET, "POST")^
+@REM                     .AllowAnyHeader());             //WithHeaders(accept, "content-type")^
+@REM             });^
+@REM ^
+@REM ^
+@REM         public static void AddAplicacionServices(this IServiceCollection services)^
+@REM         {^
+@REM             services.AddScoped<IUnitOfWork,UnitOfWork>();^
+@REM         }^
+@REM ^
+@REM     } > ApplicationServiceExtension.cs
 
-cd ..
+@REM cd ..
 
-echo using Api%file_name%.Extensions;^
-using Microsoft.EntityFrameworkCore;^
-using Persistencia.Data;^
-^
-var builder = WebApplication.CreateBuilder(args);^
-^
-// Add services to the container.^
-^
-builder.Services.AddControllers();^
-builder.Services.ConfigureCors();^
-builder.Services.AddAplicacionServices();^
-^
-builder.Services.AddDbContext<NameContext>(options =>^
-{^
-    string ? connectionString = builder.Configuration.GetConnectionString("ConexMysql");^
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));^
-});^
-^
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle^
-builder.Services.AddEndpointsApiExplorer();^
-builder.Services.AddSwaggerGen();^
-^
-var app = builder.Build();^
-^
-// Configure the HTTP request pipeline.^
-if (app.Environment.IsDevelopment())^
-{^
-    app.UseSwagger();^
-    app.UseSwaggerUI();^
-}^
-^
-app.UseCors("CorsPolicy");^
-^
-app.UseHttpsRedirection();^
-^
-app.UseAuthorization();^
-^
-app.MapControllers();^
-^
-app.Run();^
-> Program.cs
+@REM echo using Api%file_name%.Extensions;^
+@REM using Microsoft.EntityFrameworkCore;^
+@REM using Persistencia.Data;^
+@REM ^
+@REM var builder = WebApplication.CreateBuilder(args);^
+@REM ^
+@REM // Add services to the container.^
+@REM ^
+@REM builder.Services.AddControllers();^
+@REM builder.Services.ConfigureCors();^
+@REM builder.Services.AddAplicacionServices();^
+@REM ^
+@REM builder.Services.AddDbContext<NameContext>(options =>^
+@REM {^
+@REM     string ? connectionString = builder.Configuration.GetConnectionString("ConexMysql");^
+@REM     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));^
+@REM });^
+@REM ^
+@REM // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle^
+@REM builder.Services.AddEndpointsApiExplorer();^
+@REM builder.Services.AddSwaggerGen();^
+@REM ^
+@REM var app = builder.Build();^
+@REM ^
+@REM // Configure the HTTP request pipeline.^
+@REM if (app.Environment.IsDevelopment())^
+@REM {^
+@REM     app.UseSwagger();^
+@REM     app.UseSwaggerUI();^
+@REM }^
+@REM ^
+@REM app.UseCors("CorsPolicy");^
+@REM ^
+@REM app.UseHttpsRedirection();^
+@REM ^
+@REM app.UseAuthorization();^
+@REM ^
+@REM app.MapControllers();^
+@REM ^
+@REM app.Run();^
+@REM > Program.cs
 
-echo {^
-  "ConnectionStrings": {^
-    "ConexSqlServer": "Data Source=localhost\\sqlexpress;Initial Catalog=dB;Integrate Security=True",^
-    "ConexMysql": "server=localhost;user=root;password=123456;database=sicerprobando"^
-  },^
-  "Logging": {^
-    "LogLevel": {^
-      "Default": "Information",^
-      "Microsoft.AspNetCore": "Warning"^
-    }^
-  }^
-} > appsettings.Development.json
+@REM echo {^
+@REM   "ConnectionStrings": {^
+@REM     "ConexSqlServer": "Data Source=localhost\\sqlexpress;Initial Catalog=dB;Integrate Security=True",^
+@REM     "ConexMysql": "server=localhost;user=root;password=123456;database=sicerprobando"^
+@REM   },^
+@REM   "Logging": {^
+@REM     "LogLevel": {^
+@REM       "Default": "Information",^
+@REM       "Microsoft.AspNetCore": "Warning"^
+@REM     }^
+@REM   }^
+@REM } > appsettings.Development.json
 
-echo {^
-  "ConnectionStrings": {^
-    "ConexSqlServer": "Data Source=localhost\\sqlexpress;Initial Catalog=dB;Integrate Security=True",^
-    "ConexMysql": "server=localhost;user=root;password=123456;database=sicerdatabase"^
-  },^
-  "Logging": {^
-    "LogLevel": {^
-      "Default": "Information",^
-      "Microsoft.AspNetCore": "Warning"^
-    }^
-  },^
-  "AllowedHosts": "*",^
-  "JWT" : {^
-    "Key" : "rgfZs3pNboV0hbg6Fat46Xtaw2GGBABY",^
-    "Issuer" : "WebApi",^
-    "Audience" : "WebApi",^
-    "DurationInMinutes" : 20^
-  }^
-} > appsettings.json
+@REM echo {^
+@REM   "ConnectionStrings": {^
+@REM     "ConexSqlServer": "Data Source=localhost\\sqlexpress;Initial Catalog=dB;Integrate Security=True",^
+@REM     "ConexMysql": "server=localhost;user=root;password=123456;database=sicerdatabase"^
+@REM   },^
+@REM   "Logging": {^
+@REM     "LogLevel": {^
+@REM       "Default": "Information",^
+@REM       "Microsoft.AspNetCore": "Warning"^
+@REM     }^
+@REM   },^
+@REM   "AllowedHosts": "*",^
+@REM   "JWT" : {^
+@REM     "Key" : "rgfZs3pNboV0hbg6Fat46Xtaw2GGBABY",^
+@REM     "Issuer" : "WebApi",^
+@REM     "Audience" : "WebApi",^
+@REM     "DurationInMinutes" : 20^
+@REM   }^
+@REM } > appsettings.json
 
-mkdir Dtos  
-mkdir Profile  
-cd Profile 
-echo using AutoMapper;^
-using Dominio.Entities;^
-using Api%file_name%.Dtos;^
-^
-namespace Api%file_name%.Profiles;^
-    public class MappingProfiles : Profile{^
-^
-        public MappingProfiles(){^
-            CreateMap<Alumno, AlumnoDto>()^
-                .ReverseMap();^
-^
-            /* .ForMember(p => p.Profesores) */^
-        }^
-    } > MappingProfiles.cs
-cd ..
+@REM mkdir Dtos  
+@REM mkdir Profile  
+@REM cd Profile 
+@REM echo using AutoMapper;^
+@REM using Dominio.Entities;^
+@REM using Api%file_name%.Dtos;^
+@REM ^
+@REM namespace Api%file_name%.Profiles;^
+@REM     public class MappingProfiles : Profile{^
+@REM ^
+@REM         public MappingProfiles(){^
+@REM             CreateMap<Alumno, AlumnoDto>()^
+@REM                 .ReverseMap();^
+@REM ^
+@REM             /* .ForMember(p => p.Profesores) */^
+@REM         }^
+@REM     } > MappingProfiles.cs
+@REM cd ..
 
-cd Properties
-echo {^
-  "$schema": "https://json.schemastore.org/launchsettings.json",^
-  "iisSettings": {^
-    "windowsAuthentication": false,^
-    "anonymousAuthentication": true,^
-    "iisExpress": {^
-      "applicationUrl": "http://localhost:56880",^
-      "sslPort": 44381^
-    }^
-  },^
-  "profiles": {^
-    "http": {^
-      "commandName": "Project",^
-      "dotnetRunMessages": true,^
-      "launchBrowser": true,^
-      "launchUrl": "swagger",^
-      "applicationUrl": "http://localhost:5000",^
-      "environmentVariables": {^
-        "ASPNETCORE_ENVIRONMENT": "Development"^
-      }^
-    },^
-    "https": {^
-      "commandName": "Project",^
-      "dotnetRunMessages": true,^
-      "launchBrowser": true,^
-      "launchUrl": "swagger",^
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",^
-      "environmentVariables": {^
-        "ASPNETCORE_ENVIRONMENT": "Development"^
-      }^
-    },^
-    "IIS Express": {^
-      "commandName": "IISExpress",^
-      "launchBrowser": true,^
-      "launchUrl": "swagger",^
-      "environmentVariables": {^
-        "ASPNETCORE_ENVIRONMENT": "Development"^
-      }^
-    }^
-  }^
-} > launchSettings.json
+@REM cd Properties
+@REM echo {^
+@REM   "$schema": "https://json.schemastore.org/launchsettings.json",^
+@REM   "iisSettings": {^
+@REM     "windowsAuthentication": false,^
+@REM     "anonymousAuthentication": true,^
+@REM     "iisExpress": {^
+@REM       "applicationUrl": "http://localhost:56880",^
+@REM       "sslPort": 44381^
+@REM     }^
+@REM   },^
+@REM   "profiles": {^
+@REM     "http": {^
+@REM       "commandName": "Project",^
+@REM       "dotnetRunMessages": true,^
+@REM       "launchBrowser": true,^
+@REM       "launchUrl": "swagger",^
+@REM       "applicationUrl": "http://localhost:5000",^
+@REM       "environmentVariables": {^
+@REM         "ASPNETCORE_ENVIRONMENT": "Development"^
+@REM       }^
+@REM     },^
+@REM     "https": {^
+@REM       "commandName": "Project",^
+@REM       "dotnetRunMessages": true,^
+@REM       "launchBrowser": true,^
+@REM       "launchUrl": "swagger",^
+@REM       "applicationUrl": "https://localhost:5001;http://localhost:5000",^
+@REM       "environmentVariables": {^
+@REM         "ASPNETCORE_ENVIRONMENT": "Development"^
+@REM       }^
+@REM     },^
+@REM     "IIS Express": {^
+@REM       "commandName": "IISExpress",^
+@REM       "launchBrowser": true,^
+@REM       "launchUrl": "swagger",^
+@REM       "environmentVariables": {^
+@REM         "ASPNETCORE_ENVIRONMENT": "Development"^
+@REM       }^
+@REM     }^
+@REM   }^
+@REM } > launchSettings.json
 
-cd ..
-mkdir Helpers
-cd ..
+@REM cd ..
+@REM mkdir Helpers
+@REM cd ..
 
-echo "Se ha creado toda la estructura base del proyecto"
+@REM echo "Se ha creado toda la estructura base del proyecto"
