@@ -30,7 +30,8 @@ $button.Add_Click({
     $nombreCarpeta = $textBox.Text
 
     # Obtener la ubicación del script actual
-    $scriptPath = "C:\Users\APM01-53\Documents\Sicer\Repos\Scripts\Etica\Ps1\VerArchivos\ArchivosVS5.ps1"
+    # $scriptPath = "C:\Users\APM01-53\Documents\Sicer\Repos\Scripts\Etica\Ps1\VerArchivos\ArchivosVS5.ps1"
+    $scriptPath = "C:\Users\ING_LICITACIONES\Downloads\Scripts\Etica\Ps1\VerArchivos\ArchivosVS5.ps1"
 
     if (Test-Path $scriptPath) {
         $resultado = & $scriptPath -nombreCarpeta $nombreCarpeta

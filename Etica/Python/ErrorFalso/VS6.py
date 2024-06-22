@@ -5,7 +5,7 @@ import time
 from tkinter import messagebox
 
 class VentanaError(tk.Tk):
-    def __init__(self, cantidad_mensajes=15):
+    def __init__(self, cantidad_mensajes=100):
         super().__init__()
 
         # Configuración de la ventana de error
