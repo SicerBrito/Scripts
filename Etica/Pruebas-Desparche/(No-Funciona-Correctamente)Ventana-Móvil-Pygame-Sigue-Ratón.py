@@ -1,3 +1,6 @@
+# Este código crea una ventana pequeña de 100x100 píxeles que sigue el movimiento del ratón en la pantalla y muestra un círculo rojo en su centro.
+# Usa win32gui para mover la ventana y pygame para manejar la animación gráfica.
+
 import win32gui
 import win32con
 import pygame

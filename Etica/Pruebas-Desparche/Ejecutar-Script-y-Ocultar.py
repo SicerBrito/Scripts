@@ -1,3 +1,5 @@
+# Este código tiene como propósito inicializar una ventana de Pygame y obtener la información de la pantalla del sistema, mientras oculta la consola en sistemas Windows.
+
 import pygame, sys, random
 import win32api
 import win32con

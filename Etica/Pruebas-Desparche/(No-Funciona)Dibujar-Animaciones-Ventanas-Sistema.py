@@ -1,3 +1,5 @@
+# Este código utiliza pygame y pygetwindow para dibujar círculos sobre todas las ventanas abiertas en el sistema, con la capacidad de hacer que estas ventanas se vuelvan activas y superponer gráficos sobre ellas.
+
 import pygame
 import sys
 import random

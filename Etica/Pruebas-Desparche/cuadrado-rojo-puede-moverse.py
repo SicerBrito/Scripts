@@ -1,3 +1,5 @@
+# Este código es un ejemplo básico de un juego en Pygame donde controlas un cuadrado rojo que puede moverse por la pantalla utilizando las teclas de dirección (arriba, abajo, izquierda y derecha).
+
 import pygame
 import random
 

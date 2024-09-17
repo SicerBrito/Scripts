@@ -1,24 +1,27 @@
+# Este código crea un juego donde una caja roja sigue al puntero del mouse y se duplica cada vez que colisiona con él, similar al anterior.
+# Sin embargo, esta versión añade un retraso en la actualización de la pantalla en lugar de utilizar un control de FPS.
+
 import pygame
 import sys
 import random
 import math
 
-# Initialize pygame
+# Inicializa Pygame
 pygame.init()
 
-# Set up the display
+# Configuración de la pantalla
 screen_info = pygame.display.Info()
 screen_width = screen_info.current_w
 screen_height = screen_info.current_h
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Mouse Chase and Duplicate")
 
-# Define colors
+# Definición de colores
 white = (255, 255, 255)
 red = (255, 0, 0)
 
-# Create a class to represent the animation
-class Circle(pygame.sprite.Sprite):
+# Clase para representar la animación
+class Animation(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.Surface((50, 50))
@@ -28,23 +31,22 @@ class Circle(pygame.sprite.Sprite):
         self.speed = 5
 
     def update(self):
-        # Move the circle towards the mouse
+        # Mover la animación hacia el mouse
         mouse_x, mouse_y = pygame.mouse.get_pos()
         angle = math.atan2(mouse_y - self.rect.centery, mouse_x - self.rect.centerx)
         self.rect.x += self.speed * math.cos(angle)
         self.rect.y += self.speed * math.sin(angle)
 
-        # Check for collision with the mouse
+        # Colisión con el mouse
         if self.rect.colliderect(mouse_rect):
             self.rect.x, self.rect.y = random.randint(0, screen_width - 50), random.randint(0, screen_height - 50)
-            circles.add(Circle())
+            animations.add(Animation())
 
-# Create a rectangle to represent the mouse
+# Rectángulo para representar el mouse
 mouse_rect = pygame.Rect(0, 0, 1, 1)
 
-# Create a group to hold the circles
-circles = pygame.sprite.Group()
-circles.add(Circle())
+animations = pygame.sprite.Group()
+animations.add(Animation())
 
 running = True
 while running:
@@ -52,17 +54,19 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # Update the mouse position
+    # Actualizar la posición del mouse
     mouse_rect.topleft = pygame.mouse.get_pos()
 
-    # Update the circles
-    circles.update()
+    # Actualizar las animaciones
+    animations.update()
 
-    # Draw the circles
+    # Dibujar en la pantalla
     screen.fill(white)
-    circles.draw(screen)
+    animations.draw(screen)
     pygame.display.flip()
 
-# Quit pygame
+    # Control de la velocidad
+    pygame.time.delay(10)
+
 pygame.quit()
 sys.exit()

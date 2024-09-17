@@ -1,3 +1,6 @@
+# Este código crea una ventana de juego en pantalla completa donde una bola blanca rebota dentro de los límites de la ventana.
+# Utiliza la biblioteca pygame para manejar gráficos y eventos, y las bibliotecas win32 para ocultar la consola al ejecutar el programa en Windows.
+
 import pygame
 import sys
 import win32api

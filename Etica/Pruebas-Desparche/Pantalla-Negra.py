@@ -1,3 +1,6 @@
+# Este código es una plantilla básica de un juego en Pygame con la particularidad de ocultar la consola al ejecutarse en un entorno de Windows utilizando win32api
+
+
 # py -m pip install pygame 
 # py -m pip install pywin32
 

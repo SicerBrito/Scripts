@@ -1,3 +1,6 @@
+# Este código utiliza pygame para crear animaciones que se mueven hacia el ratón, dibujándose sobre las ventanas activas en el sistema.
+# Además, utiliza pygetwindow para obtener y manipular ventanas abiertas.
+
 import pygame
 import random
 import math
@@ -51,7 +54,7 @@ while running:
     for animation in animations:
         if animation.window.isActive:
             window_rect = animation.window.left, animation.window.top, animation.window.width, animation.window.height
-            pygame.draw.rect(pygame.display.get_surface(), (0, 0, 0, 0), window_rect)  # Limpiar ventana
+            # pygame.draw.rect(pygame.display.get_surface(), (0, 0, 0, 0), window_rect)  # Limpiar ventana
             animation.draw(pygame.display.get_surface())
 
     pygame.display.flip()

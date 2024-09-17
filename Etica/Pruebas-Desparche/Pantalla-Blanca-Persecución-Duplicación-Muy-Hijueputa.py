@@ -1,7 +1,11 @@
+# Este código crea una ventana de juego en la que una caja roja sigue al puntero del mouse y se duplica al colisionar con él.
+# Utiliza pygame para manejar los gráficos y eventos, creando una animación interactiva.
+
 import pygame
 import sys
 import random
 import math
+
 
 # Inicializa Pygame
 pygame.init()
@@ -63,7 +67,7 @@ while running:
     pygame.display.flip()
 
     # Control de la velocidad
-    pygame.time.delay(10)
+    # clock.tick(60)
 
 pygame.quit()
 sys.exit()
