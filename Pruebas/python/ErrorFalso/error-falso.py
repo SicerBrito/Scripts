@@ -9,7 +9,7 @@ def mostrar_ventana_error():
 
     for _ in range(50):
         ventana.attributes("-disabled", True)  # Desactivar la ventana
-        messagebox.showerror("Error Falso", "Este es un mensaje de error falso.")
+        messagebox.showerror("Fatal System", "Error de sistema.")
         ventana.update_idletasks()
         ventana.attributes("-disabled", False)  # Habilitar la ventana
 

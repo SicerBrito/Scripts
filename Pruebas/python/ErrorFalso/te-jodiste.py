@@ -8,19 +8,16 @@ class MensajeError:
         self.root = root
         self.frame = tk.Frame(self.root, bg='white', width=400, height=100)
         self.frame.place(relx=random.uniform(0.1, 0.9), rely=random.uniform(0.1, 0.9), anchor='center')
-        self.label = tk.Label(self.frame, text="Este es un mensaje de error falso", fg='red', font=("Arial", 14))
+        self.label = tk.Label(self.frame, text="Te Jodiste", fg='red', font=("Arial", 14))
         self.label.pack(pady=10)
-
-        # Botón "X" para cerrar el mensaje
-        self.boton_cerrar = tk.Button(self.frame, text="X", command=self.cerrar)
-        self.boton_cerrar.place(relx=1.0, rely=0.0, anchor='ne')
-
-    def cerrar(self):
+        self.frame.bind("<Button-1>", self.cerrar)
+    
+    def cerrar(self, event):
         self.frame.destroy()
 
 class VentanaError(tk.Tk):
-    def __init__(self, num_mensajes=50):
-        tk.Tk.__init__(self)
+    def __init__(self, num_mensajes=150):
+        super().__init__()
 
         # Configuración de transparencia (0 = completamente transparente, 1 = completamente opaco)
         self.attributes('-alpha', 0.8)  # Ajusta el valor a tu preferencia
@@ -36,7 +33,7 @@ class VentanaError(tk.Tk):
         for _ in range(num_mensajes):
             mensaje = MensajeError(self)
             self.mensajes.append(mensaje)
-            time.sleep(3)  # Intervalo de tiempo antes de crear el siguiente mensaje (en segundos)
+            time.sleep(0.2)  # Intervalo de tiempo antes de crear el siguiente mensaje (en segundos)
 
 if __name__ == "__main__":
     ventana_error = VentanaError()
