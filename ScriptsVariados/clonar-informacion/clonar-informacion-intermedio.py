@@ -32,7 +32,7 @@ def copiar_directorio(src, dst):
 
 def main():
     user_profile = Path.home()
-    carpetas = ["Documents", "Downloads", "Desktop"]
+    carpetas = ["Desktop", "Escritorio", 'Pictures', 'Imágenes', 'Documents', 'Documentos', 'Music', 'Musica', 'Videos', 'Downloads', 'Descargas']
 
     for carpeta in carpetas:
         src = user_profile / carpeta
@@ -49,3 +49,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

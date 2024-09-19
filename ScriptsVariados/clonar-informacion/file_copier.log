@@ -1,0 +1,22 @@
+2024-09-19 07:52:02,180 - INFO - Procesando: Desktop
+2024-09-19 07:53:20,878 - ERROR - Error copiando C:\Users\ING_LICITACIONES\Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\fc2a3c0a-34d4-4402-8e1c-d0e6a555825d.vsidx a c:\Users\ING_LICITACIONES\Desktop\Sicer\Pruebas\Scripts\ScriptsVariados\clonar-informacion\recovery_data_Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\fc2a3c0a-34d4-4402-8e1c-d0e6a555825d.vsidx: [WinError 32] El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso
+2024-09-19 07:53:20,879 - ERROR - Error copiando C:\Users\ING_LICITACIONES\Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\edef12ac-5f58-44cf-b918-81eeb1e59a2f.vsidx a c:\Users\ING_LICITACIONES\Desktop\Sicer\Pruebas\Scripts\ScriptsVariados\clonar-informacion\recovery_data_Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\edef12ac-5f58-44cf-b918-81eeb1e59a2f.vsidx: [WinError 32] El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso
+2024-09-19 07:53:20,879 - ERROR - Error copiando C:\Users\ING_LICITACIONES\Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\9563dcb1-077d-4af6-95bd-d1e0941d4347.vsidx a c:\Users\ING_LICITACIONES\Desktop\Sicer\Pruebas\Scripts\ScriptsVariados\clonar-informacion\recovery_data_Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\9563dcb1-077d-4af6-95bd-d1e0941d4347.vsidx: [WinError 32] El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso
+2024-09-19 07:53:20,879 - ERROR - Error copiando C:\Users\ING_LICITACIONES\Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\5a1b1d0a-2710-4fd0-8d48-b8344a688460.vsidx a c:\Users\ING_LICITACIONES\Desktop\Sicer\Pruebas\Scripts\ScriptsVariados\clonar-informacion\recovery_data_Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\5a1b1d0a-2710-4fd0-8d48-b8344a688460.vsidx: [WinError 32] El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso
+2024-09-19 07:53:20,892 - ERROR - Error copiando C:\Users\ING_LICITACIONES\Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\2a2af358-6337-444e-a075-681fe9980313.vsidx a c:\Users\ING_LICITACIONES\Desktop\Sicer\Pruebas\Scripts\ScriptsVariados\clonar-informacion\recovery_data_Desktop\Sicer\Desarrollo\AcademiaBE\.vs\AcademiaBE\FileContentIndex\2a2af358-6337-444e-a075-681fe9980313.vsidx: [WinError 32] El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso
+2024-09-19 07:59:22,090 - WARNING - Errores al copiar Desktop: 5 archivos no se pudieron copiar.
+2024-09-19 07:59:22,090 - INFO - Procesando: Escritorio
+2024-09-19 07:59:22,091 - WARNING - La carpeta Escritorio no existe
+2024-09-19 07:59:22,091 - INFO - Procesando: Pictures
+2024-09-19 07:59:24,037 - INFO - Procesando: Imágenes
+2024-09-19 07:59:24,037 - WARNING - La carpeta Imágenes no existe
+2024-09-19 07:59:24,037 - INFO - Procesando: Documents
+2024-09-19 08:00:31,929 - INFO - Procesando: Documentos
+2024-09-19 08:00:31,930 - WARNING - La carpeta Documentos no existe
+2024-09-19 08:00:31,930 - INFO - Procesando: Music
+2024-09-19 08:00:33,272 - INFO - Procesando: Musica
+2024-09-19 08:00:33,272 - WARNING - La carpeta Musica no existe
+2024-09-19 08:00:33,272 - INFO - Procesando: Videos
+2024-09-19 08:00:33,327 - INFO - Procesando: Downloads
+2024-09-19 08:09:11,458 - INFO - Procesando: Descargas
+2024-09-19 08:09:11,458 - WARNING - La carpeta Descargas no existe
