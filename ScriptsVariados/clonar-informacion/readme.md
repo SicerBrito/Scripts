@@ -1,98 +1,94 @@
-# Documentación del Script de Copia de Archivos
+# Documentación: Copiador de Archivos Multihilo
 
-Autor: Sicer Andres Brito Gutierrez
+## Autor
+Sicer Andrés Brito Gutiérrez
 
-## Archivo de referencia
-`clonar-informacion-version-final.py`
+## Referencia
+[Enlace al archivo del script](paste.txt)
 
 ## Descripción General
-
-Este script es una herramienta de línea de comandos diseñada para copiar o simular la copia de directorios específicos del perfil de usuario a un destino designado. Ofrece funcionalidades como compresión de archivos, ignorar patrones específicos y simulación de operaciones.
+Este script de Python implementa un copiador de archivos multihilo que permite copiar carpetas específicas del directorio de inicio del usuario a una ubicación de destino. Ofrece opciones para ignorar ciertos patrones de archivo, comprimir los archivos copiados y simular el proceso sin realizar cambios reales.
 
 ## Características Principales
-
-1. Copia múltiples directorios del perfil de usuario.
-2. Opción para comprimir archivos durante la copia.
-3. Capacidad para ignorar archivos basados en patrones.
-4. Modo de simulación para previsualizar operaciones sin realizar cambios.
-5. Manejo de errores y logging detallado.
-6. Barra de progreso en tiempo real.
-7. Procesamiento multihilo para mejorar el rendimiento.
+1. Copia multihilo para mejorar el rendimiento
+2. Opción para comprimir archivos durante la copia
+3. Modo de simulación para previsualizar operaciones
+4. Barra de progreso simple para seguimiento visual
+5. Registro detallado de operaciones y errores
+6. Soporte para patrones de ignorado de archivos
+7. Personalización de carpetas a copiar y destino
 
 ## Requisitos
-
-- Python 3.6+
+- Python 3.x
 - Bibliotecas estándar de Python (no se requieren instalaciones adicionales)
 
+## Funciones Principales
+
+### setup_logging(script_dir)
+Configura el sistema de registro para el script.
+
+### copiar_archivo(s, d, compress=False, simulate=False)
+Copia un archivo individual, con opciones para compresión y simulación.
+
+### simple_progress_bar(iteration, total, ...)
+Muestra una barra de progreso simple en la consola.
+
+### copiar_directorio(src, dst, ignore_patterns=None, compress=False, simulate=False)
+Copia un directorio completo utilizando múltiples hilos.
+
+### main(carpetas=None, ignore_patterns=None, dst_base=None, compress=False, simulate=False)
+Función principal que orquesta el proceso de copia.
+
 ## Uso
+El script se puede ejecutar desde la línea de comandos con varias opciones:
 
 ```
-python script_name.py [--carpetas CARPETAS [CARPETAS ...]] [--ignore IGNORE [IGNORE ...]] 
-                      [--dst DST] [--compress] [--simulate]
+python script.py [--carpetas CARPETA1 CARPETA2 ...] [--ignore PATRON1 PATRON2 ...] [--dst DESTINO] [--compress] [--simulate]
 ```
 
-### Argumentos
+### Argumentos:
+- `--carpetas`: Lista de carpetas para copiar (opcional, por defecto usa una lista predefinida)
+- `--ignore`: Patrones de archivos a ignorar (opcional)
+- `--dst`: Directorio base de destino (opcional, por defecto usa el directorio del script)
+- `--compress`: Activa la compresión de archivos copiados
+- `--simulate`: Activa el modo de simulación sin realizar cambios reales
 
-- `--carpetas`: Lista opcional de carpetas para copiar. Si no se especifica, se usará una lista predeterminada.
-- `--ignore`: Patrones de archivos a ignorar durante la copia.
-- `--dst`: Directorio base de destino para las copias.
-- `--compress`: Activa la compresión de archivos copiados.
-- `--simulate`: Realiza una simulación sin efectuar cambios reales.
+### Ejemplos de uso:
+1. Copiar carpetas por defecto:
+   ```
+   python script.py
+   ```
 
-## Estructura del Código
+2. Copiar carpetas específicas:
+   ```
+   python script.py --carpetas Desktop Documents
+   ```
 
-### Funciones Principales
+3. Ignorar ciertos tipos de archivo:
+   ```
+   python script.py --ignore "*.tmp" "*.log"
+   ```
 
-1. `setup_logging(script_dir)`: Configura el sistema de logging.
-2. `copiar_archivo(s, d, compress=False, simulate=False)`: Copia un archivo individual.
-3. `simple_progress_bar(...)`: Muestra una barra de progreso en la consola.
-4. `copiar_directorio(src, dst, ignore_patterns=None, compress=False, simulate=False)`: Gestiona la copia de un directorio completo.
-5. `main(...)`: Función principal que coordina todo el proceso.
+4. Copiar y comprimir:
+   ```
+   python script.py --compress
+   ```
 
-### Flujo de Ejecución
+5. Simular la copia:
+   ```
+   python script.py --simulate
+   ```
 
-1. Parseo de argumentos de línea de comandos.
-2. Configuración del logging.
-3. Determinación de las carpetas a copiar.
-4. Iteración sobre cada carpeta:
-   - Verificación de existencia.
-   - Copia o simulación de copia.
-   - Manejo de errores.
-5. Resumen final del proceso.
+## Comportamiento por Defecto
+Si no se especifican carpetas, el script intentará copiar las siguientes carpetas del perfil del usuario:
+"Desktop", "Escritorio", "Pictures", "Imágenes", "Documents", "Documentos", "Music", "Musica", "Videos", "Downloads", "Descargas"
 
-## Detalles de Implementación
-
-### Manejo de Errores
-- Utiliza un sistema de logging para registrar errores y advertencias.
-- Los errores durante la copia de archivos individuales no detienen el proceso completo.
-
-### Optimización de Rendimiento
-- Emplea `ThreadPoolExecutor` para copiar archivos en paralelo.
-- El número de trabajadores se ajusta automáticamente al número de núcleos de CPU.
-
-### Flexibilidad
-- Permite especificar carpetas personalizadas o usar una lista predeterminada.
-- Ofrece opciones para ignorar ciertos archivos y comprimir durante la copia.
-
-### Feedback al Usuario
-- Muestra una barra de progreso en tiempo real.
-- Proporciona resúmenes de errores y tiempo total de ejecución.
-
-## Mejores Prácticas Implementadas
-
-1. **Uso de `pathlib`**: Mejora la portabilidad y legibilidad del manejo de rutas.
-2. **Manejo de excepciones**: Captura y registra errores sin interrumpir el proceso principal.
-3. **Configuración flexible**: Permite personalizar el comportamiento a través de argumentos de línea de comandos.
-4. **Simulación**: Opción para probar el script sin realizar cambios reales.
-5. **Logging**: Registro detallado de operaciones y errores para facilitar el debugging.
-
-## Conclusión
-
-Este script proporciona una solución robusta y flexible para la copia de directorios de usuario, con características avanzadas como compresión, simulación y manejo de errores. Su diseño modular y uso de prácticas de programación modernas lo hacen fácil de mantener y extender.
+## Registro de Operaciones
+Todas las operaciones y errores se registran en el archivo `file_copier.log` en el mismo directorio que el script.
 
 ## Soporte
-Para preguntas o problemas relacionados con este script, contacta al autor: Sicer Andres Brito Gutierrez.
+Para soporte o consultas, contacte al autor:
+Discord: SicerBrito#1610
 
----
-
-*Nota: Utilice este script con responsabilidad y asegúrese de tener los permisos necesarios para copiar las carpetas del sistema.*
+## Nota de Responsabilidad
+Este script se proporciona tal cual, sin garantías de ningún tipo. El autor no se hace responsable de cualquier daño o pérdida de datos que pueda resultar de la utilización de este script. Se recomienda encarecidamente a los usuarios que realicen copias de seguridad de sus datos importantes antes de usar esta herramienta y que verifiquen cuidadosamente los resultados de la operación de copia. Utilice el modo de simulación para comprender el comportamiento del script antes de realizar operaciones reales.

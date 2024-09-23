@@ -1,89 +1,66 @@
-# Documentación: Explorador de Carpetas con Búsqueda Mejorada en PowerShell
+# Documentación: Explorador de Carpetas con Búsqueda Mejorada
 
-Autor: Sicer Andres Brito Gutierrez
+## Autor
+Sicer Andrés Brito Gutiérrez
 
-## Archivo de referencia
-`ExploraradorCarpetas.ps1` (nombre sugerido)
+## Referencia
+[Enlace al archivo del script](paste.txt)
 
-## Descripción
-Este script de PowerShell, creado por Sicer Andres Brito Gutierrez, desarrolla una interfaz gráfica de usuario (GUI) para explorar el sistema de archivos con funcionalidades de búsqueda mejoradas. Permite a los usuarios navegar por carpetas, ver detalles de archivos y carpetas, y realizar búsquedas en la estructura de directorios.
+## Descripción General
+Este script de PowerShell crea una aplicación de interfaz gráfica de usuario (GUI) para explorar el sistema de archivos con funcionalidades de búsqueda mejoradas. La aplicación permite a los usuarios navegar por las carpetas, buscar archivos y carpetas, y ver detalles de los elementos seleccionados.
+
+## Características Principales
+1. Exploración de carpetas en una estructura de árbol
+2. Búsqueda de archivos y carpetas
+3. Visualización de detalles de archivos y carpetas
+4. Carga dinámica de contenido de carpetas
+5. Interfaz gráfica intuitiva
 
 ## Requisitos
-- Windows PowerShell 5.1 o superior
-- Permisos para ejecutar scripts de PowerShell en el sistema
+- Windows PowerShell
+- .NET Framework (incluido en Windows)
 
-## Funcionalidades principales
+## Funciones Principales
 
-### 1. Exploración de carpetas
-- Muestra una estructura de árbol de carpetas y archivos.
-- Carga el contenido de las carpetas de forma dinámica al expandirlas.
-- Diferencia visualmente entre carpetas y archivos mediante iconos.
+### Get-FolderContent
+Esta función recorre recursivamente una carpeta y agrega su contenido al TreeView.
 
-### 2. Búsqueda
-- Permite buscar archivos y carpetas por nombre en toda la estructura cargada.
-- Resalta y navega hasta los resultados encontrados.
+Parámetros:
+- `$FolderPath`: Ruta de la carpeta a explorar
+- `$TreeView`: Objeto TreeView donde se mostrarán los resultados
+- `$ParentNode`: Nodo padre en el TreeView (opcional)
 
-### 3. Visualización de detalles
-- Muestra información detallada del elemento seleccionado, incluyendo:
-  - Ruta completa
-  - Tipo (archivo o carpeta)
-  - Tamaño (para archivos)
-  - Fecha de última modificación
+### Search-TreeView
+Realiza una búsqueda en el TreeView basada en un término de búsqueda.
 
-### 4. Selección de carpeta raíz
-- Permite al usuario seleccionar la carpeta raíz para explorar.
+Parámetros:
+- `$TreeView`: Objeto TreeView donde se realizará la búsqueda
+- `$SearchTerm`: Término de búsqueda
 
-## Funciones principales
+### Eventos Principales
+- `BeforeExpand`: Carga el contenido de una carpeta cuando se expande en el TreeView
+- `AfterSelect`: Muestra los detalles del elemento seleccionado
+- `Click` (botón de búsqueda): Inicia la búsqueda
+- `KeyPress` (caja de búsqueda): Permite iniciar la búsqueda al presionar Enter
+- `Click` (botón de selección de carpeta): Abre un diálogo para seleccionar la carpeta raíz
 
-### `Get-FolderContent`
-Obtiene el contenido de una carpeta y lo agrega al TreeView.
+## Interfaz de Usuario
+- Panel de búsqueda con caja de texto y botón
+- TreeView para mostrar la estructura de carpetas y archivos
+- Panel de detalles para mostrar información del elemento seleccionado
+- Barra de estado para mensajes informativos
+- Botón para seleccionar la carpeta raíz
 
-#### Parámetros
-- `FolderPath`: Ruta de la carpeta a explorar.
-- `TreeView`: Objeto TreeView donde se agregarán los elementos.
-- `ParentNode`: Nodo padre en el TreeView (opcional).
-
-### `Search-TreeView`
-Busca nodos en el TreeView que coincidan con el término de búsqueda.
-
-#### Parámetros
-- `TreeView`: Objeto TreeView donde realizar la búsqueda.
-- `SearchTerm`: Término a buscar.
-
-## Instrucciones de uso
-
-1. Ejecute el script en PowerShell ISE o en una consola de PowerShell con permisos de ejecución de scripts.
-2. En la interfaz gráfica que se abre:
-   a. Haga clic en "Seleccionar Carpeta" para elegir la carpeta raíz a explorar.
-   b. Use el TreeView para navegar por la estructura de carpetas.
-   c. Haga clic en archivos o carpetas para ver sus detalles en el panel inferior.
-   d. Use el cuadro de búsqueda y el botón "Buscar" para encontrar elementos específicos.
-
-## Elementos de la interfaz
-
-1. **Botón "Seleccionar Carpeta"**: Abre un diálogo para seleccionar la carpeta raíz.
-2. **Panel de búsqueda**: 
-   - Cuadro de texto para ingresar términos de búsqueda.
-   - Botón "Buscar" para iniciar la búsqueda.
-3. **TreeView**: Muestra la estructura de carpetas y archivos.
-4. **Panel de detalles**: Muestra información del elemento seleccionado.
-5. **Barra de estado**: Muestra mensajes sobre la carpeta cargada y resultados de búsqueda.
-
-## Consideraciones y limitaciones
-
-- El rendimiento puede verse afectado en carpetas con un gran número de archivos y subcarpetas.
-- La búsqueda se realiza sobre los elementos ya cargados en el TreeView.
-- El script requiere permisos de lectura en las carpetas que se intentan explorar.
-
-## Solución de problemas
-
-- Si el script no se ejecuta, asegúrese de que la política de ejecución de PowerShell permite la ejecución de scripts.
-- Si no se muestran algunas carpetas o archivos, verifique que tiene los permisos necesarios para acceder a ellos.
+## Uso
+1. Ejecute el script en PowerShell
+2. Use el botón "Seleccionar Carpeta" para elegir la carpeta raíz
+3. Navegue por la estructura de carpetas en el TreeView
+4. Utilice la función de búsqueda para encontrar archivos o carpetas específicos
+5. Seleccione un elemento para ver sus detalles en el panel inferior
 
 ## Soporte
+Para soporte o consultas, contacte al autor:
+Discord: SicerBrito#1610
 
-Para preguntas o problemas relacionados con este script, contacte al autor, Sicer Andres Brito Gutierrez, o al administrador del sistema responsable de los scripts de PowerShell en su organización.
-
----
-
-*Nota: Utilice este script con responsabilidad y asegúrese de tener los permisos necesarios para explorar las carpetas del sistema.*
+## Nota de Responsabilidad
+Este script se proporciona tal cual, sin garantías de ningún tipo. El autor no se hace responsable de cualquier daño o uso indebido que pueda resultar de la utilización de este script. Se insta a los usuarios a utilizarlo de manera responsable y ética.
