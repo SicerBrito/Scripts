@@ -4,7 +4,7 @@
 Sicer Andrés Brito Gutiérrez
 
 ## Referencia
-[Enlace al archivo del script](paste.txt)
+[Enlace al archivo del script](interfaz-grafica.ps1)
 
 ## Descripción General
 Este script de PowerShell crea una aplicación de interfaz gráfica de usuario (GUI) para explorar el sistema de archivos con funcionalidades de búsqueda mejoradas. La aplicación permite a los usuarios navegar por las carpetas, buscar archivos y carpetas, y ver detalles de los elementos seleccionados.
@@ -60,7 +60,7 @@ Parámetros:
 
 ## Soporte
 Para soporte o consultas, contacte al autor:
-Discord: SicerBrito#1610
+```Discord: SicerBrito#1610```
 
 ## Nota de Responsabilidad
 Este script se proporciona tal cual, sin garantías de ningún tipo. El autor no se hace responsable de cualquier daño o uso indebido que pueda resultar de la utilización de este script. Se insta a los usuarios a utilizarlo de manera responsable y ética.
