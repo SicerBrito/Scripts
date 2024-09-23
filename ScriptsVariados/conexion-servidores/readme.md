@@ -1,0 +1,1 @@
+Primero se ejecuta el ```troyano_servidor.py``` para tener el acceso o puerto de escuha por donde nos vamos a conectar y despue ```troyano_cliente.py``` para extraer los datos
