@@ -14,4 +14,4 @@ Recuerda siempre agregar:
  - Soporte: Información de contacto para que se comuniquen conmigo (Discord: SicerBrito#1610)
  - Nota: Alusión o comentario para que utilicen el script con responsabilidad y que yo no me hago cargo de cualquier daño causado por una persona maliciosa
 
-```w
+```
